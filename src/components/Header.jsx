@@ -17,7 +17,7 @@ export default function Header() {
     
     return (
     <>
-        <header className="bg-white fixed top-0 flex w-full border-b-2 border-solid border-black justify-between items-center">
+        <header className="bg-white fixed top-0 flex w-full border-b-2 border-solid border-black justify-between items-center z-10">
             <a href="/">
                 <img src={logo} alt="Logo Strony" className="h-16 my-3 ml-7" />
             </a>

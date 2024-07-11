@@ -5,9 +5,9 @@ import '../main.css'
 export default function Offer() {
     return (
         <main className="mt-22">
-            <h1 className="text-5xl font-semibold text-center p-10">Nasza Oferta</h1>
+            <h1 className="text-4xl font-bold text-center p-10">Nasza Oferta</h1>
             <section id="offer" className="h-fit flex flex-col justify-center items-center py-20 gap-32">
-                <InfoBox title="Konsultacja Psychologiczna" text="Konsultacja psychologiczna to doraźna forma pomocy i wsparcia.  
+                <InfoBox nr="1" title="Konsultacja Psychologiczna" text="Konsultacja psychologiczna to doraźna forma pomocy i wsparcia.  
                         Rozmowa, podczas której osoba zgłaszająca się konsultuje różnego rodzaju trudne dla niej sytuacje życiowe, 
                         zachowania lub stany emocjonalne, które zaburzają funkcjonowanie psychiczne, 
                         są dla niej niezrozumiałe lub, z którymi sobie nie radzi.
@@ -18,7 +18,7 @@ export default function Offer() {
                         Trwa ona ok. 50 minut i obejmuje zazwyczaj od 1 do 3 spotkań.
                         Zdarza się, że jest początkiem dłuższej terapii." 
                         price="140" />
-                <InfoBox title="Terapia indywidualna dla dorosłych" text="Terapia indywidualna dla dorosłych jest skierowana do osób, 
+                <InfoBox nr="2" title="Terapia indywidualna dla dorosłych" text="Terapia indywidualna dla dorosłych jest skierowana do osób, 
                         które odczuwają brak satysfakcji ze swojego życia, znajdują się w sytuacji kryzysowej lub przeżyły sytuację traumatyczną, 
                         nie potrafią zaakceptować choroby bądź niepełnosprawności oraz czują się z tego powodu wykluczone z życia społecznego. 
                         Doświadczających przykrych objawów takich jak: niepokój, obniżenie nastroju, cierpienie z powodu anhedonii, 
@@ -27,7 +27,7 @@ export default function Offer() {
                         odpowiedzialnością oraz u których zdiagnozowano wcześniej zaburzenia osobowości, zaburzenia depresyjne lub nerwicę. 
                         Terapia indywidualna może pomóc osobom osamotnionym, niezadowolonym z relacji z otoczeniem i niemogących zbudować 
                         szczęśliwego związku z niezrozumiałych dla siebie przyczyn." price="150" />
-                <InfoBox title="Terapia dla dzieci i młodzieży" text="Terapia dzieci i młodzieży jest formą terapii rodzinnej i jest skierowana do osób, 
+                <InfoBox nr="3" title="Terapia dla dzieci i młodzieży" text="Terapia dzieci i młodzieży jest formą terapii rodzinnej i jest skierowana do osób, 
                         które nie ukończyły osiemnastego roku życia. Jest to proces regularnych spotkań z dzieckiem/nastolatkiem, 
                         które odbywają się we współpracy z rodzicami lub opiekunami. 
                         Stanowisko większości specjalistów pracujących w terapii dzieci i młodzieży jest jednoznaczne – 
@@ -36,7 +36,7 @@ export default function Offer() {
                         zapraszany jest do współpracy rodzic mieszkający z dzieckiem lub opiekun wychowujący dziecko.  
                         Czas trwania terapii jest ustalany w zależności od rodzaju i stopnia nasilenia zgłaszanych trudności. 
                         Zazwyczaj wystarczy kilka wizyt, ale w niektórych przypadkach wskazana jest dłuższa terapia." price="150" />
-                <InfoBox title="Terapia rodzinna" text="Rodzina to słowo, które u wielu osób wywołuje ciepłe odczucia. 
+                <InfoBox nr="4" title="Terapia rodzinna" text="Rodzina to słowo, które u wielu osób wywołuje ciepłe odczucia. 
                         To właśnie wśród najbliższych każdy człowiek powinien przychodzić na świat i dorastać. 
                         Większość ludzi, idąc za przykładem społecznym, decyduje się na założenie własnej rodziny, 
                         chcąc dzięki temu przede wszystkim zyskać poczucie bezpieczeństwa, móc rozwijać swoje pasje, 

@@ -6,7 +6,7 @@ export default function About() {
     return (
         <main className="mt-22">
             <section id="about" className="h-fit flex justify-center items-center mt-22 py-20">
-                <div className="w-7/12 md:w-10/12 sm:w-11/12 bg-whitesmoke border-platinum border-solid border-2 p-10 rounded-2xl">
+                <div className="w-7/12 md:w-10/12 sm:w-11/12 border-gray-200 border-solid border-[0.5px] p-10 rounded-2xl">
                     <div className="flex justify-center">
                         <img src={ProfImg} className="rounded-full" />
                     </div>

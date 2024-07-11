@@ -9,3 +9,16 @@
       margin: 0;
     }
   }
+
+  .PhoneInputInput {
+    outline: none;
+  }
+
+  .PhoneContainer:focus{
+    border: 1px solid #0ea5e9;
+    border-radius: 8px;
+  }
+
+  .react-datepicker__time-list-item--disabled{
+    display: none;
+  }
