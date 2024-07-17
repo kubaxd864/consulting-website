@@ -46,7 +46,9 @@ app.post('/contact', async (req, res) => {
       
     transporter.sendMail(options);
 })
-
+app.post('/reservation', async (req, res) => {
+    console.log(req.body.data)
+})
 app.listen(3000, () => {
     console.log(`Serwer został uruchomiony: http://localhost:3000`)
 })

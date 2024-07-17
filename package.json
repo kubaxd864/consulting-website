@@ -16,7 +16,6 @@
     "@fortawesome/free-regular-svg-icons": "^6.5.2",
     "@fortawesome/free-solid-svg-icons": "^6.5.2",
     "@fortawesome/react-fontawesome": "^0.2.2",
-    "@mobiscroll/react": "npm:@mobiscroll/react-next-trial@^5.31.0",
     "@react-email/components": "0.0.19",
     "@react-email/render": "^0.0.15",
     "dotenv": "^16.4.5",
@@ -36,9 +35,6 @@
     "react-router-dom": "^6.23.1"
   },
   "devDependencies": {
-    "@babel/cli": "^7.24.7",
-    "@babel/core": "^7.24.7",
-    "@babel/preset-react": "^7.24.7",
     "@types/react": "^18.2.66",
     "@types/react-dom": "^18.2.22",
     "@vitejs/plugin-react": "^4.2.1",
