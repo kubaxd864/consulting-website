@@ -22,9 +22,9 @@ export default function Header() {
                 <img src={logo} alt="Logo Strony" className="h-16 my-3 ml-7" />
             </a>
             <nav className="flex gap-7 font-medium bg-white sm:fixed sm:bottom-0 sm:-right-full sm:flex-col sm:w-full sm:h-custom sm:pt-12 sm:items-center sm:text-2xl sm:gap-16">
-                {menu.map((item) => {
+                {menu.map((item, index) => {
                     return (
-                        <a className={window.location.pathname == item.link ? "text-blue-500 underline underline-offset-4 decoration-2 decoration-blue-500" : "hover:text-blue-400"} href={item.link}>{item.name}</a>
+                        <a key={index} className={window.location.pathname == item.link ? "text-sky-500 underline underline-offset-4 decoration-2 decoration-sky-500" : "hover:text-sky-400"} href={item.link}>{item.name}</a>
                     )
                 })}
             </nav>

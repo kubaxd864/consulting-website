@@ -1,45 +1,61 @@
-import React, { useState } from 'react';
-import { useForm, Controller } from 'react-hook-form';
-import '../main.css';
+import { React, useEffect, useState } from 'react';
+import { useForm, Controller, set } from 'react-hook-form';
+import { getDay } from 'react-datepicker/dist/date_utils.d';
 import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css"
 import axios from 'axios';
+import '../main.css';
 
-export default function ContactForm(props) {
-    const { control, register, handleSubmit, formState: {errors, isSubmitSuccessful} } = useForm();
-    const [value, setValue] = useState()
-    const [selectedDate, setSelectedDate] = useState(new Date())
-    const [reservationDate, setReservationDate] = useState()
+export default function ContactForm() {
+    const { control, register, handleSubmit, formState: {errors} } = useForm();
+    const [submitSuccesful, issubmitSuccesful] = useState('Zarezerwuj')
+    const reservedDatesStart = []
+    const reservedDatesEnd = []
 
-    // const handleDateChange = (date) => {
-    //     setSelectedDate(date)
-    //     var reservationdate = new Date(date) 
-    //     reservationdate.setHours(reservationdate.getHours() + 2)
-    //     setReservationDate(reservationdate.toISOString());
-    // }
+    const isWeekday = (date) => {
+        const day = getDay(date);
+        return day !== 0 && day !== 6;
+    };
+
+    const filterTimes = (time) => {
+        const currentDate = new Date()
+        const selectedDate = new Date(time)
+        for (let i = 0; i < reservedDatesStart.length; i++){
+            if (selectedDate.getTime() >= (reservedDatesStart[i].getTime() - 1800000)  && selectedDate.getTime() < reservedDatesEnd[i].getTime()) {
+                return false; 
+            }
+        }
+        return currentDate.getTime() < selectedDate.getTime();
+    };
+
+    useEffect(() => {
+        axios.get('http://localhost:3000/get_calendar_info')
+            .then((response) => {
+                for(let i = 0; i < response.data.events.length; i++){
+                    if(['Konsultacja Psychologiczna', 'Konsultacja Rodzicielska', 'Wsparcie Psychologiczne', 'Terapia Psychologiczna'].includes(response.data.events[i].summary)){
+                        reservedDatesStart.push(new Date(response.data.events[i].start.dateTime)) 
+                        reservedDatesEnd.push(new Date(response.data.events[i].end.dateTime)) 
+                    }
+                }
+            })
+            .catch((error) => {
+                alert('Wystąpił błąd podczas pobierania danych Rezerwacji');
+                console.log(error) 
+            });
+    }, []);
 
     const onSubmit = (data) => {
         axios.post('http://localhost:3000/reservation', {data})
         .then((response) => {
-            console.log(response)
+            issubmitSuccesful(response.data)
         })
     }
 
     return(
         <main className="p-3">
             <form onSubmit={handleSubmit(onSubmit)} noValidate>
-            <div className='flex flex-row lm:flex-col justify-around lm:items-center'>
+            <div className='flex flex-row justify-center gap-6 lm:flex-col lm:items-center'>
                 <div className='lm:w-8/12 md:w-10/12 sm:w-full'>
-                    <div className="w-full p-2">
-                    <label className='block mb-2 font-medium'>Wybierz Specjalistę</label>
-                    <select defaultValue={""} {...register("specialist_name", {required: "To pole jest wymagane"})} className='border outline-none rounded-lg w-full p-2 focus:ring-2 focus:ring-inset focus:ring-sky-500'>
-                        <option value="" disabled>Wybierz specjalistę</option>
-                        <option value="Dr. Jan Kowalski">Dr. Jan Kowalski</option>
-                        <option value="Dr. Anna Nowak">Dr. Anna Nowak</option>
-                        <option value="Dr. Piotr Wiśniewski">Dr. Piotr Wiśniewski</option>
-                    </select>
-                    {errors.specialist_name && <p className="text-red-500 text-sm">{errors.specialist_name.message}</p>}
-                </div>
                 <div className="w-full p-2">
                 <label className='block mb-2 font-medium'>Wybierz datę i godzinę wizyty:</label>
                 <Controller
@@ -54,46 +70,38 @@ export default function ContactForm(props) {
                         showTimeSelect 
                         timeFormat="HH:mm"
                         timeIntervals={30}
-                        minTime={new Date(2024, 6, 11, 8)}
-                        maxTime={new Date(2024, 6, 11, 16)}
-                        dateFormat="MMMM d, yyyy h:mm aa"
+                        minDate={new Date()}
+                        minTime={new Date(2024, 10, 29, 8, 0)}
+                        maxTime={new Date(2024, 10, 29, 16, 0)}
                         shouldCloseOnSelect={false}
-                        filterTime={(time) => {
-                            // Sprawdź, czy wybrana data to 11 lipca 2024
-                            const isTargetDate = field.value && field.value.getDate() === 11 && field.value.getMonth() === 6 && field.value.getFullYear() === 2024;
-                            // Jeśli tak, wyłącz godzinę 8:00
-                            if (isTargetDate) {
-                                const hour = time.getHours();
-                                return hour !== 8; // Zwróć false dla godziny 8:00, aby ją wyłączyć
-                            }
-                            return true; // Dla innych dat zezwól na wszystkie godziny
-                        }}
+                        filterDate={isWeekday}
+                        filterTime={filterTimes}
                     />
                 )}
             />
             {errors.appointmentDate && <p className="text-red-500 text-sm">{errors.appointmentDate.message}</p>}
                 </div>   
                 <div className='w-full p-2'>
-                    <label className='block mb-2 font-medium'>Wybierz rodzaj terapii:</label>
+                    <label className='block mb-2 font-medium'>Wybierz rodzaj pomocy:</label>
                     <select defaultValue={""} {...register("therapy_type", {required: "To pole jest wymagane"})} className='border outline-none rounded-lg w-full p-2 focus:ring-2 focus:ring-inset focus:ring-sky-500'>
-                        <option value="" disabled>Wybierz rodzaj terapii</option>
-                        <option value="Konsultacja Psychologoczna">Konsultacja Psychologoczna</option>
-                        <option value="Terapia indywidualna dla dorosłych">Terapia indywidualna dla dorosłych</option>
-                        <option value="Terapia dla dzieci i młodzieży">Terapia dla dzieci i młodzieży</option>
-                        <option value="Terapia rodzinna">Terapia rodzinna</option>
+                        <option value="" disabled></option>
+                        <option value="Konsultacja Psychologiczna">Konsultacja Psychologoczna</option>
+                        <option value="Konsultacja Rodzicielska">Konsultacje Rodzicielskie</option>
+                        <option value="Wsparcie Psychologiczne">Wsparcie Psychologiczne</option>
+                        <option value="Terapia Psychologiczna">Terapia Psychologiczna dla dorosłych, młodzieży i dzieci</option>
                     </select>
                     {errors.therapy_type && <p className="text-red-500 text-sm">{errors.therapy_type.message}</p>}
-                </div>
+                </div> 
                 <div className="w-full p-2">
                         <fieldset>
-                            <legend className="block mb-2 font-medium">Czy pierwszy umawiasz się do tego specjalisty:</legend>
+                            <legend className="block mb-2 font-medium">Czy umawiasz się po raz pierwszy:</legend>
                             <div className="flex flex-row gap-5 ml-1">
                                 <div className="flex gap-2">
-                                    <input type="radio" {...register("new_client", {required: "To pole jest wymagane"})} value="yes" />
+                                    <input type="radio" {...register("new_client", {required: "To pole jest wymagane"})} value="Tak" />
                                     <label>Tak</label>
                                 </div>
                                 <div className="flex gap-2">
-                                    <input type="radio" {...register("new_client", {required: "To pole jest wymagane"})} value="no" />
+                                    <input type="radio" {...register("new_client", {required: "To pole jest wymagane"})} value="NIE" />
                                     <label>Nie</label>
                                 </div>
                             </div>
@@ -167,10 +175,10 @@ export default function ContactForm(props) {
                         className="border outline-none rounded-lg w-full p-2 focus:ring-2 focus:ring-inset focus:ring-sky-500" />
                         {errors.message && <p className="text-red-500 text-sm">{errors.message.message}</p>}
                     </div>
-                    <div className="flex justify-center p-2">
-                        <button type="submit" className="py-2 px-8 bg-sky-500 hover:bg-sky-400 text-white font-medium rounded-xl">{isSubmitSuccessful ? "Zarezerwowano" : "Zarezerwuj"}</button> 
-                    </div>
                 </div>
+            </div>
+            <div className="flex justify-center pt-12 p-5">
+                <button type="submit" className="py-2 px-8 bg-sky-500 hover:bg-sky-400 text-white font-medium rounded-xl">{submitSuccesful}</button> 
             </div>
             </form>
         </main>

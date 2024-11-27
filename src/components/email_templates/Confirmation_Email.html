@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body{
+            display: flex;
+            justify-content: center;
+            font-size: large;
+        }
+        .container {
+            color: black;
+            min-width: 600px;
+            padding: 20px;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .container > h2 {
+            margin-bottom: 60px;
+            font-size: larger;
+        }
+        .contact > span{
+            font-weight: 600;
+        }
+        .end {
+            margin-top: 20px;   
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Witaj {{name}}</h2>
+        <p class="header">Ta Wiadomość jest potwierdzeniem rezerwacji wizyty w terminie {{date}}</p>
+        <p class="info">
+            Aby dokonać zmiany daty rezerwacji lub ją odwołać skontaktuj się ze mną:
+            <p class="contact">
+                <span>Email:</span> psycholog.krzywicka@wp.pl<br>
+                <span>Telefon:</span> 509 814 396
+            </p>
+        </p>
+        <p class="end">Dziękuję!</p>
+    </div>
+</body>
+</html>

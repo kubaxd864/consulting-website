@@ -6,16 +6,70 @@ import fs from 'fs'
 import { promisify } from 'util'
 import handlebars from 'handlebars'
 import 'dotenv/config';
+import { google } from 'googleapis';
 
 const readFileAsync = promisify(fs.readFile)
 const app = express()
+
+const SCOPES = 'https://www.googleapis.com/auth/calendar';
+const GOOGLE_PRIVATE_KEY= process.env.GOOGLE_PRIVATE_KEY
+const GOOGLE_CLIENT_EMAIL = process.env.GOOGLE_CLIENT_EMAIL
+const GOOGLE_PROJECT_NUMBER = process.env.GOOGLE_PROJECT_NUMBER
+const GOOGLE_CALENDAR_ID = process.env.GOOGLE_CALENDAR_ID
+
+const jwtClient = new google.auth.JWT(
+  GOOGLE_CLIENT_EMAIL,
+  null,
+  GOOGLE_PRIVATE_KEY,
+  SCOPES
+);
+
+const calendar = google.calendar({
+  version: 'v3',
+  project: GOOGLE_PROJECT_NUMBER,
+  auth: jwtClient
+});
+
+const transporter = nodemailer.createTransport({
+    service: "gmail",
+    host: "smtp.gmail.com",
+    port: 465,
+    secure: true,
+    auth: {
+      user: process.env.EMAIL_USER,
+      pass: process.env.APP_PASSWORD,
+    },
+    tls: {
+      rejectUnauthorized: false,
+    },
+  });
 
 app.use(cors())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
+app.get('/get_calendar_info', (req, res) => {
+    calendar.events.list({
+    calendarId: GOOGLE_CALENDAR_ID,
+    timeMin: (new Date()).toISOString(),
+    singleEvents: true,
+    orderBy: 'startTime',
+  }, (error, result) => {
+    if (error) {
+      res.send(JSON.stringify({ error: error }));
+    } else {
+      if (result.data.items.length) {
+        res.send(JSON.stringify({ events: result.data.items }));
+      } else {
+        res.send(JSON.stringify({ message: 'No upcoming events found.' }));
+      }
+    }
+  });
+})
+
 app.post('/contact', async (req, res) => {
-    const htmlTemplate = await readFileAsync('./src/components/Email.html', 'utf-8');
+  const htmlTemplate = await readFileAsync('./src/components/email_templates/Email.html', 'utf-8');
+  try {
     const templateData = {
       name: req.body.data.name,
       surname: req.body.data.surname,
@@ -23,32 +77,70 @@ app.post('/contact', async (req, res) => {
       phone: req.body.data.phone,
       message: req.body.data.message,
     };
-
-    const transporter = nodemailer.createTransport({
-        service: "Gmail",
-        host: "smtp.gmail.com",
-        port: 465,
-        secure: true,
-        auth: {
-          user: process.env.EMAIL_USER,
-          pass: process.env.APP_PASSWORD,
-        },
-      });
-
     const template = handlebars.compile(htmlTemplate);
     const htmlToSend = template(templateData);
     const options = {
-        from: 'Wiadomość od Klienta <example@gmail.com>',
-        to: process.env.EMAIL_DESTINATION,
-        subject: req.body.data.subject,
-        html: htmlToSend,
+      from: `Wiadomość od ${req.body.data.name} <example@gmail.com>`,
+      to: process.env.EMAIL_DESTINATION,
+      subject: req.body.data.subject,
+      html: htmlToSend,
     };
-      
     transporter.sendMail(options);
+    res.send('Wysłano');
+  } catch (error) {
+    res.status(500).send('Błąd');
+  }
 })
+
 app.post('/reservation', async (req, res) => {
-    console.log(req.body.data)
+  const htmlTemplate = await readFileAsync('./src/components/email_templates/Confirmation_Email.html', 'utf-8');
+  let appointmentdate = new Date(req.body.data.appointmentDate);
+  let appointmentDateEnd = new Date(req.body.data.appointmentDate);
+  appointmentDateEnd.setHours(appointmentDateEnd.getHours() + 1);
+  let event = {
+    'summary': req.body.data.therapy_type,
+    'description': `Rezerwacja wizyty: ${' ' + req.body.data.therapy_type} \nDnia: ${appointmentdate.toLocaleDateString()} od godziny ${appointmentdate.toLocaleTimeString()} \nDane Rezerwującego: \nImię i Nazwisko: ${req.body.data.name + ' ' + req.body.data.surname} \nNowy Klient: ${req.body.data.new_client} \nEmail: ${req.body.data.email} \nTelefon: ${req.body.data.phone} \nDodatkowe Informacje: ${req.body.data.message || 'Brak'}`,
+    'start': {
+      'dateTime':  appointmentdate.toISOString(),
+      'timeZone': 'Europe/Warsaw',
+    },
+    'end': {
+      'dateTime': appointmentDateEnd.toISOString(),
+      'timeZone': 'Europe/Warsaw',
+    },
+  }
+  const auth = new google.auth.GoogleAuth({
+    keyFile: 'C:\\Users\\x\\Desktop\\Programy\\Pliki\\vaulted-bivouac-428921-s5-4c459858e2de.json',
+    scopes: 'https://www.googleapis.com/auth/calendar',
+  });
+  auth.getClient().then(a=>{
+    calendar.events.insert({
+      auth:a,
+      calendarId: GOOGLE_CALENDAR_ID,
+      resource: event,
+    }, function(err) {
+      if (err) {
+        res.send('Wystąpił błąd podczas Rezerwacji')
+        return;
+      }
+      res.send("Zarezerwowano");
+      const templateData = {
+        name: req.body.data.name,
+        date: new Date(req.body.data.appointmentDate).toLocaleString('pl-PL', { timeZone: 'Europe/Warsaw' })
+      };
+      const template = handlebars.compile(htmlTemplate);
+      const htmlToSend = template(templateData);
+      const options = {
+        from: 'Psycholog Krzywicka <psycholog.krzywicka@wp.pl>',
+        to: req.body.data.email,
+        subject: 'Potwierdzenie Wizyty',
+        html: htmlToSend,
+      };
+      transporter.sendMail(options);
+    });
+  })
 })
+
 app.listen(3000, () => {
     console.log(`Serwer został uruchomiony: http://localhost:3000`)
 })

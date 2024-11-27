@@ -1,13 +1,15 @@
-import React from 'react';
+import { React, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import '../main.css';
 import axios from 'axios';
 
 export default function ContactForm() {
-    const { register, handleSubmit, formState: {errors, isSubmitSuccessful} } = useForm();
-
+    const { register, handleSubmit, formState: {errors} } = useForm();
+    const [sendSuccesful, issendSuccesful] = useState('Wyślij')
     const onSubmit = (data) => {
-        axios.post('http://localhost:3000/contact', {data})
+        axios.post('http://localhost:3000/contact', {data}).then((response) => {
+            issendSuccesful(response.data)
+        })
     }
 
     return(
@@ -97,9 +99,9 @@ export default function ContactForm() {
                     rows="6" 
                     className="border outline-none rounded-lg w-full p-2 focus:ring-2 focus:ring-inset focus:ring-sky-500" />
                     {errors.message && <p className="text-red-500 text-sm">{errors.message.message}</p>}
-                 </div>
+                </div>
                 <div className="flex justify-center p-2">
-                    <button type="submit" className="py-2 px-8 bg-sky-500 hover:bg-sky-400 text-white font-medium rounded-xl">{isSubmitSuccessful ? "Wysłano" : "Wyślij"}</button> 
+                    <button type="submit" className="py-2 px-8 bg-sky-500 hover:bg-sky-400 text-white font-medium rounded-xl">{sendSuccesful}</button> 
                 </div>
             </form>
         </main>

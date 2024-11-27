@@ -16,21 +16,20 @@ export default function Footer() {
                             </div>
                             <div className="text-center flex flex-col justify-center m-5">
                                 <h3 className="text-3xl mb-3">Dane Kontaktowe</h3>
-                                <p className="">mgr. Anna Kowalska</p>
-                                <p className="">Adres: ul. Lorem Ipsum 12 10-900 Olsztyn</p>
-                                <p className="">Telefon: 123 456 789</p>
-                                <p className="">E-mail: xd69@gmail.com</p>
+                                <p className="">mgr. Aneta Krzywicka</p>
+                                <p className="">Adres: ul. Leyka 7 10-900 Olsztyn</p>
+                                <p className="">Telefon: 509 814 396</p>
+                                <p className="">E-mail: psycholog.krzywicka@wp.pl</p>
                             </div>
                             <div className="text-center flex flex-col justify-center m-5">
                                 <h3 className="text-3xl text-center">Jestem również na:</h3>
-                                <p className="flex justify-center mt-5 text-5xl"><a href="https://www.facebook.com"><FontAwesomeIcon icon={faFacebook} /></a></p>
+                                <p className="flex justify-center mt-5 text-5xl"><a href="https://www.facebook.com/profile.php?id=61551949681296"><FontAwesomeIcon icon={faFacebook} /></a></p>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div className="flex flex-row sm:flex-col justify-between gap-5 p-5 border-solid border-black text-gray-200">
-                    <p className="text-center">SVG Background by BGJar</p>
-                    <a href="https://github.com/kubaxd864/" className="text-center"><FontAwesomeIcon icon={faGithub} /> Author: kubaxd864</a>
+                    <a href="https://github.com/kubaxd864/" target='_blank' className="text-center"><FontAwesomeIcon icon={faGithub} /></a>
                 </div>
             </footer>
         </>
