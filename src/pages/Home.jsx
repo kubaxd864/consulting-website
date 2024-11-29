@@ -12,7 +12,7 @@ export default function Home() {
             </div>
         </section>
         <section id="about" className="flex justify-center items-center">
-            <div className="w-8/12 bg-white dark:border-night mt-10 p-10 rounded-xl">
+            <div className="w-8/12 lg:w-10/12 sm:w-full bg-white dark:border-night mt-10 p-10 rounded-xl">
                 <h1 className="text-center text-5xl md:text-4xl mb-16 font-semibold">Dlaczego <span className="text-sky-400">nasz</span> gabinet</h1>
                 <div className="flex justify-center">
                     <div className="text-center text-xl">
