@@ -1,3 +1,35 @@
 {
-    "rewrites": [{ "source": "/(.*)", "destination": "/" }]
+    "version": 2,
+    "builds": [
+    {
+        "src": "src/api/api.js",
+        "use": "@vercel/node"
+    }
+    ],
+    "routes": [
+        { 
+            "src": "/about", 
+            "dest": "/" 
+        },
+        { 
+            "src": "/contact", 
+            "dest": "/" 
+        },
+        { 
+            "src": "/offer", 
+            "dest": "/" 
+        },
+        { 
+            "src": "/office", 
+            "dest": "/" 
+        },
+        { 
+            "src": "/office", 
+            "dest": "/" 
+        },
+        { 
+            "src": "/reservation", 
+            "dest": "/" 
+        }
+    ]
 }
