@@ -4,7 +4,7 @@ import '../main.css';
 import axios from 'axios';
 
 export default function ContactForm() {
-    const { register, handleSubmit, formState: {errors} } = useForm();
+    const { register, handleSubmit, formState: {errors, isSubmitSuccessful} } = useForm();
     const [sendSuccesful, issendSuccesful] = useState('Wyślij')
     const onSubmit = (data) => {
         axios.post('http://localhost:3000/contact', {data}).then((response) => {
@@ -14,7 +14,7 @@ export default function ContactForm() {
 
     return(
         <main className="w-2/6 lg:w-4/6 md:w-full p-5">
-            <form onSubmit={handleSubmit(onSubmit)} noValidate>
+            <form onSubmit={isSubmitSuccessful ? null : handleSubmit(onSubmit)} noValidate>
                 <div className="flex flex-row">
                     <div className="w-full p-2">
                         <label className="block mb-2 font-medium">Imię</label>

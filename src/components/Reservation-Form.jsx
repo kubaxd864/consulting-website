@@ -7,7 +7,7 @@ import axios from 'axios';
 import '../main.css';
 
 export default function ContactForm() {
-    const { control, register, handleSubmit, formState: {errors} } = useForm();
+    const { control, register, handleSubmit, formState: {errors, isSubmitSuccessful} } = useForm();
     const [submitSuccesful, issubmitSuccesful] = useState('Zarezerwuj')
     const reservedDatesStart = []
     const reservedDatesEnd = []
@@ -53,7 +53,7 @@ export default function ContactForm() {
 
     return(
         <main className="p-3">
-            <form onSubmit={handleSubmit(onSubmit)} noValidate>
+            <form onSubmit={isSubmitSuccessful ? null  : handleSubmit(onSubmit)} noValidate>
             <div className='flex flex-row justify-center gap-6 lm:flex-col lm:items-center'>
                 <div className='lm:w-8/12 md:w-10/12 sm:w-full'>
                 <div className="w-full p-2">
