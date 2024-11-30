@@ -5,10 +5,10 @@ import '../main.css';
 
 export default function Header() {
     const menu = [
-        {name : "O Mnie", link : "/about"},
-        {name : "Gabinet", link : "/office"},
-        {name : "Oferta", link : "/offer"},
-        {name : "Kontakt", link : "/contact"}
+        {name : "O Mnie", link : "/#/about"},
+        {name : "Gabinet", link : "/#/office"},
+        {name : "Oferta", link : "/#/offer"},
+        {name : "Kontakt", link : "/#/contact"}
     ]
 
     function openMenu() {
