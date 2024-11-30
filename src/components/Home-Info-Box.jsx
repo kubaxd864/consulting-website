@@ -20,7 +20,7 @@ function InfoBox(props) {
                     <h3 className="text-2xl m-7 font-semibold">{props.title}</h3>
                     <p className="p-2">{props.text}</p>
                 </div>
-                <a href={'/offer#'+ props.id} className="mt-auto">
+                <a href={'/#/offer'} className="mt-auto">
                     <button className="bg-sky-500 hover:bg-sky-400 text-white rounded-xl px-4 py-3 mt-3">Dowiedz się Więcej</button>
                 </a>
             </div>

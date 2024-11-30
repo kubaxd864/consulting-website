@@ -31,10 +31,10 @@ export default function Home() {
         <h1 className="text-center text-5xl md:text-4xl my-12 pt-2 font-semibold">Co oferujemy</h1>
             <div className="flex justify-center">
                 <div className="grid grid-cols-[repeat(auto-fit,_minmax(20rem,_1fr))] w-11/12">
-                    <InfoBox id='psychologicalConsultation' img='familyThreapy' title='Konsultacja Psychologiczna' text='Mająca na celu wstępne ustalenie trudności, problemów, obszarów wymagających wsparcia psychologicznego lub terapii oraz ustalenie oczekiwań osoby zgłaszającej się.'/>
-                    <InfoBox id='familyThreapy' img='psychologicalTherapy' title='Konsultacje Rodzicielskie' text='Dla rodziców/opiekunów doświadczających problemów wychowawczych z dzieckiem, trudności w relacji z dzieckiem, mających potrzebę poszerzenia swoich umiejętności rodzicielskich.'/>
-                    <InfoBox id='psychologicalSupport' img='psychologicalSupport' title='Wsparcie Psychologiczne' text='Skierowane do wszystkich chcących wzmocnić swoje mocne strony, rozwinąć umiejętności i kompetencje społeczne, popracować nad obrazem siebie, radzeniem sobie w kryzysie lub ze stresem.'/>
-                    <InfoBox id='psychologicalTherapy' img='psychologicalConsultation' title='Terapia Psychologiczna dla dorosłych, młodzieży i dzieci' text='Skierowane jest do dzieci i młodzieży oraz dorosłych doświadczających trudności emocjonalnych i cierpienia psychicznego, mających trudności w relacjach interpersonalnych i wypełnianiu ról społecznych, do osób które doświadczyły traumy.'/>
+                    <InfoBox img='familyThreapy' title='Konsultacja Psychologiczna' text='Mająca na celu wstępne ustalenie trudności, problemów, obszarów wymagających wsparcia psychologicznego lub terapii oraz ustalenie oczekiwań osoby zgłaszającej się.'/>
+                    <InfoBox img='psychologicalTherapy' title='Konsultacje Rodzicielskie' text='Dla rodziców/opiekunów doświadczających problemów wychowawczych z dzieckiem, trudności w relacji z dzieckiem, mających potrzebę poszerzenia swoich umiejętności rodzicielskich.'/>
+                    <InfoBox img='psychologicalSupport' title='Wsparcie Psychologiczne' text='Skierowane do wszystkich chcących wzmocnić swoje mocne strony, rozwinąć umiejętności i kompetencje społeczne, popracować nad obrazem siebie, radzeniem sobie w kryzysie lub ze stresem.'/>
+                    <InfoBox img='psychologicalConsultation' title='Terapia Psychologiczna dla dorosłych, młodzieży i dzieci' text='Skierowane jest do dzieci i młodzieży oraz dorosłych doświadczających trudności emocjonalnych i cierpienia psychicznego, mających trudności w relacjach interpersonalnych i wypełnianiu ról społecznych, do osób które doświadczyły traumy.'/>
                 </div>
             </div>
         </section>
