@@ -21,7 +21,7 @@ export default {
 
     extend: {
       height: {
-        custom: 'calc(100vh - 90px)',
+        custom: 'calc(100lvh - 90px)',
       },
       spacing: {
         '22': '5.5rem',
