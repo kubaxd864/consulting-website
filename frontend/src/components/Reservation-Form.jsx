@@ -72,7 +72,7 @@ export default function ContactForm() {
                         timeIntervals={30}
                         minDate={new Date()}
                         minTime={new Date(2024, 10, 29, 8, 0)}
-                        maxTime={new Date(2024, 10, 29, 16, 0)}
+                        maxTime={new Date(2024, 10, 29, 20, 0)}
                         shouldCloseOnSelect={false}
                         filterDate={isWeekday}
                         filterTime={filterTimes}

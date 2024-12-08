@@ -18,7 +18,7 @@ export default {
 
       'sm': {'max': '520px'},
     },
-
+    
     extend: {
       height: {
         custom: 'calc(100dvh - 90px)',

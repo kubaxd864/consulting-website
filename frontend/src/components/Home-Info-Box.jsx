@@ -22,7 +22,7 @@ function InfoBox(props) {
                 </div>
                 <a href={'/#/offer'} className="mt-auto">
                     <button className="bg-sky-500 hover:bg-sky-400 text-white rounded-xl px-4 py-3 mt-3">Dowiedz się Więcej</button>
-                </a>
+                </a> 
             </div>
         </>
     )

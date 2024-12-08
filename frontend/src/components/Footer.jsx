@@ -16,9 +16,10 @@ export default function Footer() {
                             </div>
                             <div className="text-center flex flex-col justify-center m-5">
                                 <h3 className="text-3xl mb-3">Dane Kontaktowe</h3>
-                                <p className="">mgr. Aneta Krzywicka</p>
-                                <p className="">Adres: ul. Leyka 7 10-900 Olsztyn</p>
+                                <p className="">mgr Aneta Krzywicka</p>
+                                <p className="">Adres: ul. Leyka 7 gabinet nr.5 10-900 Olsztyn</p>
                                 <p className="">Telefon: 509 814 396</p>
+                                <p className="">Zapisy pod nr.: 727 273 799</p>
                                 <p className="">E-mail: psycholog.krzywicka@wp.pl</p>
                             </div>
                             <div className="text-center flex flex-col justify-center m-5">
@@ -28,7 +29,7 @@ export default function Footer() {
                         </div>
                     </div>
                 </div>
-                <div className="flex flex-row sm:flex-col justify-between gap-5 p-5 border-solid border-black text-gray-200">
+                <div className="flex flex-row sm:flex-col justify-between gap-5 p-2 border-solid border-black text-gray-200">
                     <a href="https://github.com/kubaxd864/" target='_blank' className="text-center"><FontAwesomeIcon icon={faGithub} /></a>
                 </div>
             </footer>
