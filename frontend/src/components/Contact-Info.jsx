@@ -7,7 +7,7 @@ export default function ContactInfo() {
 
     const contactInfo = [
         {icon : faBuilding, text : "ul. Leyka 7 10-900 Olsztyn"},
-        {icon : faUser, text : "mgr. Aneta Krzywicka"},
+        {icon : faUser, text : "mgr Aneta Krzywicka"},
         {icon : faPhone, text : "509 814 396"},
         {icon : faEnvelope, text : "psycholog.krzywicka@wp.pl"},
         {icon : faClock, text : "Otwarte w godzinach 8.00 - 16.00"}

@@ -48,6 +48,8 @@ app.use(cors())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
+app.get("/", (req, res) => res.send("Express on Vercel"));
+
 app.get('/get_calendar_info', (req, res) => {
     calendar.events.list({
     calendarId: GOOGLE_CALENDAR_ID,
@@ -141,6 +143,6 @@ app.post('/reservation', async (req, res) => {
   })
 })
 
-app.listen(3000, () => {
-    console.log(`Serwer został uruchomiony: http://localhost:3000`)
-})
+app.listen(5000, () => console.log("Server ready on port 5000."));
+
+module.exports = app;
