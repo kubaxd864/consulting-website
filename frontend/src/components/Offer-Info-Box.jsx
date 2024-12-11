@@ -37,5 +37,3 @@ export default function OfferInfoBox(props) {
         </main>
     )
 }
-
-// Cena: {props.price} zł</span> / {props.time} min

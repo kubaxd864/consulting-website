@@ -29,7 +29,7 @@ export default function ContactForm() {
     };
 
     useEffect(() => {
-        axios.get('http://localhost:3000/get_calendar_info')
+        axios.get('https://consulting-website-server.vercel.app/get_calendar_info')
             .then((response) => {
                 for(let i = 0; i < response.data.events.length; i++){
                     if(['Konsultacja Psychologiczna', 'Konsultacja Rodzicielska', 'Wsparcie Psychologiczne', 'Terapia Psychologiczna'].includes(response.data.events[i].summary)){
@@ -45,7 +45,7 @@ export default function ContactForm() {
     }, []);
 
     const onSubmit = (data) => {
-        axios.post('http://localhost:3000/reservation', {data})
+        axios.post('https://consulting-website-server.vercel.app/reservation', {data})
         .then((response) => {
             issubmitSuccesful(response.data)
         })

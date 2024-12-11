@@ -7,7 +7,7 @@ export default function ContactForm() {
     const { register, handleSubmit, formState: {errors, isSubmitSuccessful} } = useForm();
     const [sendSuccesful, issendSuccesful] = useState('Wyślij')
     const onSubmit = (data) => {
-        axios.post('http://localhost:3000/contact', {data}).then((response) => {
+        axios.post('https://consulting-website-server.vercel.app/contact', {data}).then((response) => {
             issendSuccesful(response.data)
         })
     }
