@@ -70,7 +70,7 @@ app.get('/get_calendar_info', (req, res) => {
 })
 
 app.post('/contact', async (req, res) => {
-  const htmlTemplate = await readFileAsync('./src/components/email_templates/Email.html', 'utf-8');
+  const htmlTemplate = await readFileAsync('./email_templates/Email.html', 'utf-8');
   try {
     const templateData = {
       name: req.body.data.name,
@@ -95,7 +95,7 @@ app.post('/contact', async (req, res) => {
 })
 
 app.post('/reservation', async (req, res) => {
-  const htmlTemplate = await readFileAsync('./src/components/email_templates/Confirmation_Email.html', 'utf-8');
+  const htmlTemplate = await readFileAsync('./email_templates/Confirmation_Email.html', 'utf-8');
   let appointmentdate = new Date(req.body.data.appointmentDate);
   let appointmentDateEnd = new Date(req.body.data.appointmentDate);
   appointmentDateEnd.setHours(appointmentDateEnd.getHours() + 1);
