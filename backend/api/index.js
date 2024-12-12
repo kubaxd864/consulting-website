@@ -70,7 +70,7 @@ app.get('/get_calendar_info', (req, res) => {
 })
 
 app.post('/contact', async (req, res) => {
-  const htmlTemplate = await readFileAsync('../email_templates/Email.html', 'utf-8');
+  const htmlTemplate = await readFileAsync('/email_templates/Email.html', 'utf-8');
   try {
     const templateData = {
       name: req.body.data.name,
