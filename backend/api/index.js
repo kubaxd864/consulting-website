@@ -1,5 +1,6 @@
 import express from 'express'
 import cors from 'cors'
+import path from 'path'
 import bodyParser from 'body-parser'
 import nodemailer from 'nodemailer'
 import fs from 'fs'
@@ -16,6 +17,8 @@ const GOOGLE_PRIVATE_KEY= process.env.GOOGLE_PRIVATE_KEY
 const GOOGLE_CLIENT_EMAIL = process.env.GOOGLE_CLIENT_EMAIL
 const GOOGLE_PROJECT_NUMBER = process.env.GOOGLE_PROJECT_NUMBER
 const GOOGLE_CALENDAR_ID = process.env.GOOGLE_CALENDAR_ID
+const contactTemplatePath = path.resolve(__dirname, '../email_templates/Email.html');
+const confirmationTemplatePath = path.resolve(__dirname, '../email_templates/Confirmation_Email.html');
 
 const jwtClient = new google.auth.JWT(
   GOOGLE_CLIENT_EMAIL,
@@ -44,7 +47,14 @@ const transporter = nodemailer.createTransport({
     },
   });
 
-app.use(cors())
+const corsOptions = {
+    origin: 'https://consulting-website-client.vercel.app',
+    methods: ['GET', 'POST'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+};
+
+
+app.use(cors(corsOptions))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
@@ -70,7 +80,7 @@ app.get('/get_calendar_info', (req, res) => {
 })
 
 app.post('/contact', async (req, res) => {
-  const htmlTemplate = await readFileAsync('Email.html', 'utf-8');
+  const htmlTemplate = await readFileAsync(contactTemplatePath, 'utf-8');
   try {
     const templateData = {
       name: req.body.data.name,
@@ -95,7 +105,7 @@ app.post('/contact', async (req, res) => {
 })
 
 app.post('/reservation', async (req, res) => {
-  const htmlTemplate = await readFileAsync('../email_templates/Confirmation_Email.html', 'utf-8');
+  const htmlTemplate = await readFileAsync(confirmationTemplatePath, 'utf-8');
   let appointmentdate = new Date(req.body.data.appointmentDate);
   let appointmentDateEnd = new Date(req.body.data.appointmentDate);
   appointmentDateEnd.setHours(appointmentDateEnd.getHours() + 1);
