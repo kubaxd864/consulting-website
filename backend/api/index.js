@@ -50,9 +50,7 @@ const transporter = nodemailer.createTransport({
 const corsOptions = {
     origin: 'https://consulting-website-client.vercel.app',
     methods: ['GET', 'POST'],
-    allowedHeaders: ['Content-Type', 'Authorization']
 };
-
 
 app.use(cors(corsOptions))
 app.use(bodyParser.json())
