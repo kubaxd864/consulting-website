@@ -8,6 +8,7 @@ import { promisify } from 'util'
 import handlebars from 'handlebars'
 import 'dotenv/config';
 import { google } from 'googleapis';
+import { error } from 'console'
 
 const readFileAsync = promisify(fs.readFile)
 const app = express()
@@ -79,8 +80,7 @@ app.get('/get_calendar_info', (req, res) => {
 
 app.post('/contact', async (req, res) => {
   const htmlTemplate = await readFileAsync(contactTemplatePath, 'utf-8');
-  try {
-    const templateData = {
+  const templateData = {
       name: req.body.data.name,
       surname: req.body.data.surname,
       email: req.body.data.email,
@@ -95,11 +95,14 @@ app.post('/contact', async (req, res) => {
       subject: req.body.data.subject,
       html: htmlToSend,
     };
-    transporter.sendMail(options);
+    transporter.sendMail(options, error => {
+      if (error) {
+        console.error("Błąd podczas wysyłania wiadomości:", error.message, error.code);
+        res.send('Wystąpił błąd podczas wysyłania wiadomości');
+        return;
+      }
+    });
     res.send('Wysłano');
-  } catch (error) {
-    res.status(500).send('Błąd');
-  }
 })
 
 app.post('/reservation', async (req, res) => {
