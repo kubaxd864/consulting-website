@@ -1,9 +1,11 @@
 import logo from '../assets/Logo_Napis.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
+import { useLocation } from 'react-router-dom';
 import '../main.css';
 
 export default function Header() {
+    const location = useLocation();
     const menu = [
         { name: "O Mnie", link: "/#/about" },
         { name: "Gabinet", link: "/#/office" },
@@ -13,6 +15,7 @@ export default function Header() {
 
     function toggleMenu() {
         document.querySelector("nav").classList.toggle("sm:-right-full");
+        console.log(location.pathname);
     }
 
     function closeMenu() {
@@ -30,7 +33,7 @@ export default function Header() {
                         return (
                             <a 
                                 key={index} 
-                                className={window.location.pathname === item.link ? "text-sky-500 underline underline-offset-4 decoration-2 decoration-sky-500" : "hover:text-sky-400"} 
+                                className={'/#' + location.pathname === item.link ? "text-sky-500 underline underline-offset-4 decoration-2 decoration-sky-500" : "hover:text-sky-400"} 
                                 href={item.link} 
                                 onClick={closeMenu}
                             >{item.name}</a>
