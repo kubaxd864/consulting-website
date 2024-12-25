@@ -1,14 +1,13 @@
-import express from 'express'
-import cors from 'cors'
-import path from 'path'
-import bodyParser from 'body-parser'
-import nodemailer from 'nodemailer'
-import fs from 'fs'
-import { promisify } from 'util'
-import handlebars from 'handlebars'
-import 'dotenv/config';
-import { google } from 'googleapis';
-import { error } from 'console'
+const express = require('express');
+const cors = require('cors');
+const path = require('path');
+const bodyParser = require('body-parser');
+const nodemailer = require('nodemailer');
+const fs = require('fs');
+const { promisify } = require('util');
+const handlebars = require('handlebars');
+require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
+const { google } = require('googleapis');
 
 const readFileAsync = promisify(fs.readFile)
 const app = express()
@@ -37,8 +36,8 @@ const calendar = google.calendar({
 const transporter = nodemailer.createTransport({
     service: "gmail",
     host: "smtp.gmail.com",
-    port: 587,
-    secure: false,
+    port: 465,
+    secure: true,
     auth: {
       user: process.env.EMAIL_USER,
       pass: process.env.APP_PASSWORD,
@@ -97,12 +96,12 @@ app.post('/contact', async (req, res) => {
     };
     transporter.sendMail(options, error => {
       if (error) {
-        console.error("Błąd podczas wysyłania wiadomości:", error.message, error.code);
-        res.send('Wystąpił błąd podczas wysyłania wiadomości');
-        return;
+        console.error("Błąd podczas wysyłania wiadomości:", error.message);
+        res.send('Błąd');
+      } else {
+        res.send('Wysłano');
       }
     });
-    res.send('Wysłano');
 })
 
 app.post('/reservation', async (req, res) => {
