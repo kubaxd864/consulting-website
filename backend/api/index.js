@@ -19,7 +19,7 @@ const confirmationTemplatePath = path.resolve(__dirname, '../email_templates/Con
 const jwtClient = new google.auth.JWT(
   process.env.GOOGLE_CLIENT_EMAIL,
   null,
-  process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, '\n'),
+  "-----BEGIN PRIVATE KEY-----\nMIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQCk2Eop9deKPAkw\nbCXS9VpgfDp72pHfDRyIQteT7PciQVud/nWVcinGFkGltmFmarxJidFBmqORhEiT\nIUuje27r3+PgfHJfYE2CgKdTdKr11tbUJq0GYVgo7nsUXbLA+xCjkNQpsEIIP7DD\na35iJX/+owXqbJKaBLSryh2ANOTpqv2mgSAJk/O2IPrXsLtPEluncUOOSKeJ+y4O\nYHi95GOKIS5qVVMFz36W174wSCSRbgifxnc8GyiwFPHYDZczrnZqZwWJyeotUJpT\n169K6FwzTxN6jg6ArlCOY/aVqBlriLQ5ixRJXUL2D/xRz0UxQm6ZMpX+6u9gVlVZ\nj1fv1ZQ/AgMBAAECggEAAnIUO5lVnsvmn2ZjWathMWBDP9yNk6xIOZWzfBLYCC6S\nQBhRdBIMoGjRHx1crMScBLbiOPs+pP7vUrUVc0uQAp9An4jiuE6F9KmZXrZ/smqc\npx4bYAzB3mDKlUVEmYwmaL7SOJVQWkeTnq3LSYQT6Sbpats8gfapTyLBaEo6NGTa\ncCieD7moKZwI3DQbBEp8bB2CsSv8OAZwjQKU/KrHi0gDge4hZQ1yZD932kV9K/3v\n4N4yvE0kgd112LAhaQ7VHwLDl4SHBeGBPiLyaojLIhdsxWHGYyFQF/wb165+tRf/\n0ivrPLanYfXMJDZ7J+M3ATph6tB2P+XjxWygb72ojQKBgQDUmzvEzAFO2pFVcpoA\nq2tDRIKX3I2W6Ijtmkap3AfBM8pejX0qjLPL4/MgRo3DWeez5cSnYPGPjvq5S3rB\nfCCjJZs9YObzWBqpSmhGmguPB3X4i5PDMKuLBOnNbNXHA2H8UgcuuHDDODtEK1Vy\nIjqde8MqFa/GtSBSpM3wAvwvIwKBgQDGfX/NXe0/E80iDd5nwWd0K42XsEngrqXx\nS2MVWlqJusvtf3h4hMmXcwdYVysIEiJ/e+2/gXbYm3abgiB8rJ21FXxzb9AMjWdA\nCk6JPSSBNxNNiWMXz6EH6fJ6hQRZurfeOKAX2Lnr31O7R+HBKbx234MT3dzAXNF3\njUnUGDcGNQKBgQCUA4a22bhHZ48qx+BDexPv/vBUPW4tk7JQiMmNU+vqK95FuYdc\nahx6ZDZNUBE94YeYDOy+ApXp9gbDnbLWpU4rhvDu6FmhLMNS/MRf8rr9Vppg8Pts\nNqQW4tLK+2xRYx+ChLEPa8TFhI5uRST1krLwFMuorvRzCIJ6RtZAtDNRtQKBgQCm\nz2+pgudQXG7H0Mn5fnNYEQYk1dWwinYRLB7wIgf2udKKHNd8yXO14MjqeA9E8CCn\n7NmoWMAtV7G9DQYKYPME7TKyvOQmuGtuSXspIQZdxZBmWDC8IRUe1oCecM1wL1g4\n3HPGtq/BR+VRfh5+vHmTmVHKT2knDJpJE6dZJKSRhQKBgQDIXTtiJ4oV3gDdlGOq\nS4EPam3JlHWhAn8tjQUXziqDj7VBu3PFsorR86ED8oUeXS0y56O4MoBL76H1TS9N\nE8aj/HnIYIUM2S/AzqEoxpXPXi2CPHJRMxcQn7KJLlz7aoNLfWShsvGYo+buP1u+\n7Hx0OnXcmv5mvylYieg+rr+biw==\n-----END PRIVATE KEY-----\n",
   SCOPES
 );
 
@@ -45,10 +45,10 @@ const transporter = nodemailer.createTransport({
 
 const corsOptions = {
     origin: [
-      'https://consulting-website-client.vercel.app',
-      'https://www.psychologkrzywicka.pl',
-      'http://localhost:5173'
-  ],
+        'https://consulting-website-client.vercel.app',
+        'https://www.psychologkrzywicka.pl',
+        'http://localhost:5173'
+    ],
     methods: ['GET', 'POST'],
 };
 
@@ -154,3 +154,5 @@ app.post('/reservation', async (req, res) => {
 })
 
 app.listen(5000, () => console.log("Server ready on port 5000."));
+
+module.exports = app;
