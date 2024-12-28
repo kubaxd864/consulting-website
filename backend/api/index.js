@@ -13,23 +13,19 @@ const readFileAsync = promisify(fs.readFile)
 const app = express()
 
 const SCOPES = 'https://www.googleapis.com/auth/calendar';
-const GOOGLE_PRIVATE_KEY= process.env.GOOGLE_PRIVATE_KEY
-const GOOGLE_CLIENT_EMAIL = process.env.GOOGLE_CLIENT_EMAIL
-const GOOGLE_PROJECT_NUMBER = process.env.GOOGLE_PROJECT_NUMBER
-const GOOGLE_CALENDAR_ID = process.env.GOOGLE_CALENDAR_ID
 const contactTemplatePath = path.resolve(__dirname, '../email_templates/Email.html');
 const confirmationTemplatePath = path.resolve(__dirname, '../email_templates/Confirmation_Email.html');
 
 const jwtClient = new google.auth.JWT(
-  GOOGLE_CLIENT_EMAIL,
+  process.env.GOOGLE_PRIVATE_KEY,
   null,
-  GOOGLE_PRIVATE_KEY,
+  process.env.GOOGLE_CLIENT_EMAIL,
   SCOPES
 );
 
 const calendar = google.calendar({
   version: 'v3',
-  project: GOOGLE_PROJECT_NUMBER,
+  project: process.env.GOOGLE_PROJECT_NUMBER,
   auth: jwtClient
 });
 
@@ -48,7 +44,11 @@ const transporter = nodemailer.createTransport({
   });
 
 const corsOptions = {
-    origin: 'https://consulting-website-client.vercel.app',
+    origin: [
+        'https://consulting-website-client.vercel.app',
+        'https://www.psychologkrzywicka.pl',
+        'http://localhost:5173'
+    ],
     methods: ['GET', 'POST'],
 };
 
@@ -60,7 +60,7 @@ app.get("/", (req, res) => res.send("Express on Vercel"));
 
 app.get('/get_calendar_info', (req, res) => {
     calendar.events.list({
-    calendarId: GOOGLE_CALENDAR_ID,
+    calendarId: process.env.GOOGLE_CALENDAR_ID,
     timeMin: (new Date()).toISOString(),
     singleEvents: true,
     orderBy: 'startTime',
@@ -129,7 +129,7 @@ app.post('/reservation', async (req, res) => {
   auth.getClient().then(a=>{
     calendar.events.insert({
       auth:a,
-      calendarId: GOOGLE_CALENDAR_ID,
+      calendarId: process.env.GOOGLE_CALENDAR_ID,
       resource: event,
     }, function(err) {
       if (err) {
