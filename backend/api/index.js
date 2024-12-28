@@ -17,9 +17,9 @@ const contactTemplatePath = path.resolve(__dirname, '../email_templates/Email.ht
 const confirmationTemplatePath = path.resolve(__dirname, '../email_templates/Confirmation_Email.html');
 
 const jwtClient = new google.auth.JWT(
-  process.env.GOOGLE_PRIVATE_KEY,
-  null,
   process.env.GOOGLE_CLIENT_EMAIL,
+  null,
+  process.env.GOOGLE_PRIVATE_KEY,
   SCOPES
 );
 
@@ -45,10 +45,10 @@ const transporter = nodemailer.createTransport({
 
 const corsOptions = {
     origin: [
-        'https://consulting-website-client.vercel.app',
-        'https://www.psychologkrzywicka.pl',
-        'http://localhost:5173'
-    ],
+      'https://consulting-website-client.vercel.app',
+      'https://www.psychologkrzywicka.pl',
+      'http://localhost:5173'
+  ],
     methods: ['GET', 'POST'],
 };
 
@@ -69,7 +69,6 @@ app.get('/get_calendar_info', (req, res) => {
       res.send(JSON.stringify({ error: error }));
     } else {
       if (result.data.items.length) {
-        console.log(result.data.items)
         res.send(JSON.stringify({ events: result.data.items }));
       } else {
         res.send(JSON.stringify({ message: 'No upcoming events found.' }));
@@ -155,5 +154,3 @@ app.post('/reservation', async (req, res) => {
 })
 
 app.listen(5000, () => console.log("Server ready on port 5000."));
-
-module.exports = app;
