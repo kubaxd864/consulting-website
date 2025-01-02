@@ -9,6 +9,7 @@ import '../main.css';
 export default function ContactForm() {
     const { control, register, handleSubmit, formState: {errors, isSubmitSuccessful} } = useForm();
     const [submitSuccesful, issubmitSuccesful] = useState('Zarezerwuj')
+    const [errorMessage, setErrorMessage] = useState('');
     const reservedDatesStart = []
     const reservedDatesEnd = []
 
@@ -31,7 +32,6 @@ export default function ContactForm() {
     useEffect(() => {
         axios.get('https://consulting-website-server.vercel.app/get_calendar_info')
             .then((response) => {
-                console.log(response.data)
                 for(let i = 0; i < response.data.events.length; i++){
                     if(['Konsultacja Psychologiczna', 'Konsultacja Rodzicielska', 'Wsparcie Psychologiczne', 'Terapia Psychologiczna'].includes(response.data.events[i].summary)){
                         reservedDatesStart.push(new Date(response.data.events[i].start.dateTime)) 
@@ -40,8 +40,7 @@ export default function ContactForm() {
                 }
             })
             .catch((error) => {
-                alert('Wystąpił błąd podczas pobierania danych Rezerwacji');
-                console.log(error) 
+                setErrorMessage('Wystąpił błąd podczas pobierania danych Rezerwacji');
             });
     }, []);
 
@@ -54,6 +53,7 @@ export default function ContactForm() {
 
     return(
         <main className="p-3">
+            {errorMessage && <p className="text-red-500 text-sm text-center mb-5">{errorMessage}</p>}
             <form onSubmit={isSubmitSuccessful ? null  : handleSubmit(onSubmit)} noValidate>
             <div className='flex flex-row justify-center gap-6 lm:flex-col lm:items-center'>
                 <div className='lm:w-8/12 md:w-10/12 sm:w-full'>

@@ -15,6 +15,7 @@ const app = express()
 const SCOPES = 'https://www.googleapis.com/auth/calendar';
 const contactTemplatePath = path.resolve(__dirname, '../email_templates/Email.html');
 const confirmationTemplatePath = path.resolve(__dirname, '../email_templates/Confirmation_Email.html');
+const serviceAccount = JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT_KEY);
 
 const jwtClient = new google.auth.JWT(
   process.env.GOOGLE_CLIENT_EMAIL,
@@ -44,11 +45,7 @@ const transporter = nodemailer.createTransport({
   });
 
 const corsOptions = {
-    origin: [
-        'https://consulting-website-client.vercel.app',
-        'https://www.psychologkrzywicka.pl',
-        'http://localhost:5173'
-    ],
+    origin: 'https://www.psychologkrzywicka.pl',
     methods: ['GET', 'POST'],
 };
 
@@ -122,7 +119,7 @@ app.post('/reservation', async (req, res) => {
     },
   }
   const auth = new google.auth.GoogleAuth({
-    keyFile: 'C:\\Users\\x\\Desktop\\Programy\\Pliki\\vaulted-bivouac-428921-s5-4c459858e2de.json',
+    credentials: serviceAccount,
     scopes: 'https://www.googleapis.com/auth/calendar',
   });
   auth.getClient().then(a=>{
@@ -132,10 +129,12 @@ app.post('/reservation', async (req, res) => {
       resource: event,
     }, function(err) {
       if (err) {
+        console.error('Wystąpił błąd podczas Rezerwacji: ' + err);
         res.send('Wystąpił błąd podczas Rezerwacji')
         return;
+      } else {
+        res.send("Zarezerwowano");
       }
-      res.send("Zarezerwowano");
       const templateData = {
         name: req.body.data.name,
         date: new Date(req.body.data.appointmentDate).toLocaleString('pl-PL', { timeZone: 'Europe/Warsaw' })
