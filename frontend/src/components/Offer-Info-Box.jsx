@@ -23,7 +23,7 @@ export default function OfferInfoBox(props) {
                     <div className="flex flex-row justify-between items-center">
                         <div className="flex flex-col">
                             <p className={`font-3xl my-1 ${props.nr != 4 ? 'hidden' : ''}`}>Terapia Psychologiczna dorosłych i młodzieży:</p>
-                            <div><p className={`font-3xl ${props.price === '' ? 'hidden' : ''}`}><span className='font-semibold text-2xl'>Cena: {props.price} zł</span> / {props.time} min</p></div>
+                            <div><p className="font-3xl"><span className='font-semibold text-2xl'>Cena: {props.price} zł</span> / {props.time} min</p></div>
                             <p className={`font-3xl my-1 ${props.nr != 4 ? 'hidden' : ''}`}>Terapia Psychologiczna dzieci:</p>
                             <div><p className={`font-3xl ${props.nr != 4 ? 'hidden' : ''}`}><span className='font-semibold text-2xl'>Cena: 160 zł</span> / 45 min</p></div>
                         </div>
@@ -31,7 +31,7 @@ export default function OfferInfoBox(props) {
                     </div>
                 </div>
                 <div className={`flex justify-center items-center ${props.nr == 2 || props.nr == 4 ? 'order-1' : ''}`}>
-                    <img fetchPriority='high' src={imageMap[props.img]} className="h-96 sm:h-80 rounded-xl" />
+                    <img src={imageMap[props.img]} className="h-96 sm:h-80 rounded-xl" />
                 </div>
             </div>
         </main>

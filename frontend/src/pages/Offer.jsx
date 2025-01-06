@@ -5,7 +5,7 @@ import '../main.css'
 export default function Offer() {
     return (
         <main className="mt-22">
-            <h1 className="text-4xl font-semibold text-center p-10">Nasza Oferta</h1>
+            <h1 className="text-4xl font-semibold text-center p-10">Moja Oferta</h1>
             <section id="offer" className="h-fit flex flex-col justify-center items-center py-20 gap-32">
                 <InfoBox nr="1" img="psychologicalConsultation" title="Konsultacja Psychologiczna" text="Konsultacja psychologiczna to doraźna forma pomocy i wsparcia.  
                         Rozmowa, podczas której osoba zgłaszająca się konsultuje różnego rodzaju trudne dla niej sytuacje życiowe, 
@@ -26,7 +26,7 @@ export default function Offer() {
                         Spotkania pomagają również w pracy nad obrazem siebie, budowaniu pewności siebie i samoakceptacji. 
                         Jeśli zmagasz się z kryzysem, trudnymi emocjami czy stresem, wsparcie psychologiczne może pomóc Ci znaleźć skuteczne strategie radzenia sobie w trudnych sytuacjach. 
                         Dzięki indywidualnemu podejściu dostosowanemu do Twoich potrzeb, wspólnie poszukamy rozwiązań, które najlepiej odpowiedzą na Twoje wyzwania. 
-                        To także okazja, by lepiej zrozumieć swoje potrzeby i cele oraz wypracować sposoby na ich realizację." price="" time=''/>
+                        To także okazja, by lepiej zrozumieć swoje potrzeby i cele oraz wypracować sposoby na ich realizację." price="170" time='50'/>
                 <InfoBox nr="4" img="psychologicalTherapy" title="Terapia Psychologiczna" text="Terapia psychologiczna to profesjonalna pomoc dla osób w każdym wieku, 
                         które doświadczają trudności emocjonalnych lub cierpienia psychicznego. 
                         Jest skierowana zarówno do dzieci i młodzieży, jak i dorosłych, którzy zmagają się z wyzwaniami w relacjach interpersonalnych czy wypełnianiu codziennych ról społecznych.

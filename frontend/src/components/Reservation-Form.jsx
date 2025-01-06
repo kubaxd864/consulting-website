@@ -10,17 +10,56 @@ export default function ContactForm() {
     const { control, register, handleSubmit, formState: {errors, isSubmitSuccessful} } = useForm();
     const [submitSuccesful, issubmitSuccesful] = useState('Zarezerwuj')
     const [errorMessage, setErrorMessage] = useState('');
-    const reservedDatesStart = []
-    const reservedDatesEnd = []
+    const reservedDatesStart = [
+        new Date("Mon Jan 10 2025 13:30:00 GMT+0100 (czas środkowoeuropejski standardowy)"),
+        new Date("Mon Jan 10 2025 17:00:00 GMT+0100 (czas środkowoeuropejski standardowy)"),
+        new Date("Mon Jan 17 2025 17:00:00 GMT+0100 (czas środkowoeuropejski standardowy)"),
+    ]
+    const reservedDatesEnd = [
+        new Date("Mon Jan 10 2025 14:30:00 GMT+0100 (czas środkowoeuropejski standardowy)"),
+        new Date("Mon Jan 10 2025 18:00:00 GMT+0100 (czas środkowoeuropejski standardowy)"),
+        new Date("Mon Jan 17 2025 18:00:00 GMT+0100 (czas środkowoeuropejski standardowy)"),
+    ]
+    const unavailableDates = [
+        "Mon Jan 13 2025 08:00:00 GMT+0100 (czas środkowoeuropejski standardowy)",
+        "Mon Feb 03 2025 08:00:00 GMT+0100 (czas środkowoeuropejski standardowy)",
+        "Mon Mar 03 2025 08:00:00 GMT+0100 (czas środkowoeuropejski standardowy)",
+        "Mon Apr 07 2025 08:00:00 GMT+0100 (czas środkowoeuropejski standardowy)",
+        "Mon May 05 2025 08:00:00 GMT+0100 (czas środkowoeuropejski standardowy)",
+        "Mon Jun 02 2025 08:00:00 GMT+0100 (czas środkowoeuropejski standardowy)",
+        "Mon Jul 07 2025 08:00:00 GMT+0100 (czas środkowoeuropejski standardowy)"
+    ]
 
     const isWeekday = (date) => {
+        const selectedDate = new Date(date).setHours(0, 0, 0, 0);
+        for (let i = 0; i < unavailableDates.length; i++){
+            const unavailableDate = new Date(unavailableDates[i]).setHours(0, 0, 0, 0);
+            if (selectedDate === unavailableDate) {
+                return false; 
+            }
+        }
         const day = getDay(date);
-        return day !== 0 && day !== 6;
+        return day !== 0 && day !== 2 && day !== 3 && day !== 4 && day !== 6;
     };
 
     const filterTimes = (time) => {
         const currentDate = new Date()
         const selectedDate = new Date(time)
+        const day = selectedDate.getDay();
+        if (day === 1) {
+            const minTime = new Date(selectedDate).setHours(12, 30, 0, 0);
+            const maxTime = new Date(selectedDate).setHours(17, 0, 0, 0);
+            if (selectedDate.getTime() < minTime || selectedDate.getTime() > maxTime) {
+                return false;
+            }
+        } else if (day === 5) {
+            const minTime = new Date(selectedDate).setHours(9, 0, 0, 0);
+            const maxTime = new Date(selectedDate).setHours(17, 0, 0, 0);
+            if (selectedDate.getTime() < minTime || selectedDate.getTime() > maxTime) {
+                return false;
+            }
+        }
+
         for (let i = 0; i < reservedDatesStart.length; i++){
             if (selectedDate.getTime() >= (reservedDatesStart[i].getTime() - 1800000)  && selectedDate.getTime() < reservedDatesEnd[i].getTime()) {
                 return false; 
