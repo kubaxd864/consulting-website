@@ -22,7 +22,9 @@ export default function Home() {
                         Obecnie uczestniczę w szkole psychoterapii psychodynamicznej w Centrum Szkoleń Psychoanalitycznych im. Hanny Segal. 
                         Zakres zdobytej przeze mnie wiedzy i umiejętności terapeutycznych pozwala mi na dobór optymalnej formy pomocy psychologicznej czy terapii. 
                         Mój gabinet w Olsztynie to miejsce zapewniające komfort, sprzyjające pełnemu zaangażowaniu w terapię zarówno dorosłych, jak i dzieci. 
-                        Oferuję elastyczne godziny wizyt, dzięki czemu łatwiej dopasować sesje terapeutyczne do własnego planu dnia.
+                        Oferuję elastyczne godziny wizyt, dzięki czemu łatwiej dopasować sesje terapeutyczne do własnego planu dnia oraz 
+                        oferuję terapię prowadzoną w formie zdalnej dzięki czemu można uczestniczyć w sesjach z domu, pracy czy podczas podróży, 
+                        co szczególnie ważne w przypadku osób mieszkających w miejscach oddalonych od dużych ośrodków.
                     </div>
                 </div>
             </div>

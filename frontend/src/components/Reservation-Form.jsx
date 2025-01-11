@@ -11,13 +11,9 @@ export default function ContactForm() {
     const [submitSuccesful, issubmitSuccesful] = useState('Zarezerwuj')
     const [errorMessage, setErrorMessage] = useState('');
     const reservedDatesStart = [
-        new Date("Mon Jan 10 2025 13:30:00 GMT+0100 (czas środkowoeuropejski standardowy)"),
-        new Date("Mon Jan 10 2025 17:00:00 GMT+0100 (czas środkowoeuropejski standardowy)"),
         new Date("Mon Jan 17 2025 17:00:00 GMT+0100 (czas środkowoeuropejski standardowy)"),
     ]
     const reservedDatesEnd = [
-        new Date("Mon Jan 10 2025 14:30:00 GMT+0100 (czas środkowoeuropejski standardowy)"),
-        new Date("Mon Jan 10 2025 18:00:00 GMT+0100 (czas środkowoeuropejski standardowy)"),
         new Date("Mon Jan 17 2025 18:00:00 GMT+0100 (czas środkowoeuropejski standardowy)"),
     ]
     const unavailableDates = [
@@ -46,22 +42,35 @@ export default function ContactForm() {
         const currentDate = new Date()
         const selectedDate = new Date(time)
         const day = selectedDate.getDay();
+
         if (day === 1) {
-            const minTime = new Date(selectedDate).setHours(12, 30, 0, 0);
-            const maxTime = new Date(selectedDate).setHours(17, 0, 0, 0);
-            if (selectedDate.getTime() < minTime || selectedDate.getTime() > maxTime) {
+            const allowedTimes = [
+                new Date(selectedDate).setHours(12, 30, 0, 0),
+                new Date(selectedDate).setHours(13, 30, 0, 0),
+                new Date(selectedDate).setHours(14, 30, 0, 0),
+                new Date(selectedDate).setHours(16, 0, 0, 0),
+                new Date(selectedDate).setHours(17, 0, 0, 0)
+            ];
+            if (!allowedTimes.includes(selectedDate.getTime())) {
                 return false;
             }
         } else if (day === 5) {
-            const minTime = new Date(selectedDate).setHours(9, 0, 0, 0);
-            const maxTime = new Date(selectedDate).setHours(17, 0, 0, 0);
-            if (selectedDate.getTime() < minTime || selectedDate.getTime() > maxTime) {
+            const allowedTimes = [
+                new Date(selectedDate).setHours(9, 0, 0, 0),
+                new Date(selectedDate).setHours(10, 0, 0, 0),
+                new Date(selectedDate).setHours(12, 30, 0, 0),
+                new Date(selectedDate).setHours(13, 30, 0, 0),
+                new Date(selectedDate).setHours(14, 30, 0, 0),
+                new Date(selectedDate).setHours(16, 0, 0, 0),
+                new Date(selectedDate).setHours(17, 0, 0, 0)
+            ];
+            if (!allowedTimes.includes(selectedDate.getTime())) {
                 return false;
             }
         }
 
         for (let i = 0; i < reservedDatesStart.length; i++){
-            if (selectedDate.getTime() >= (reservedDatesStart[i].getTime() - 1800000)  && selectedDate.getTime() < reservedDatesEnd[i].getTime()) {
+            if (selectedDate.getTime() >= reservedDatesStart[i].getTime() && selectedDate.getTime() < reservedDatesEnd[i].getTime()) {
                 return false; 
             }
         }
