@@ -79,13 +79,13 @@ export default function ContactForm() {
         axios.get('https://consulting-website-server.vercel.app/get_calendar_info')
             .then((response) => {
                 const sentences = [
-                    'Konsultacja Psychologiczna',
-                    'Konsultacja Rodzicielska',
-                    'Wsparcie Psychologiczne',
-                    'Terapia Psychologiczna'
+                    'konsultacja psychologiczna',
+                    'konsultacja rodzicielska',
+                    'wsparcie psychologiczne',
+                    'terapia psychologiczna'
                 ];
                 for(let i = 0; i < response.data.events.length; i++){
-                    if(sentences.some(sentence => response.data.events[i].summary.includes(sentence))){
+                    if(sentences.some(sentence => response.data.events[i].summary.toLowerCase().includes(sentence))){
                         reservedDatesStart.push(new Date(response.data.events[i].start.dateTime)) 
                         reservedDatesEnd.push(new Date(response.data.events[i].end.dateTime)) 
                     }
