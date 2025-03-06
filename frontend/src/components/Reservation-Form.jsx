@@ -60,8 +60,6 @@ export default function ContactForm() {
                 new Date(selectedDate).setHours(10, 0, 0, 0),
                 new Date(selectedDate).setHours(12, 30, 0, 0),
                 new Date(selectedDate).setHours(13, 30, 0, 0),
-                new Date(selectedDate).setHours(14, 30, 0, 0),
-                new Date(selectedDate).setHours(16, 0, 0, 0),
                 new Date(selectedDate).setHours(17, 0, 0, 0)
             ];
             if (!allowedTimes.includes(selectedDate.getTime())) {
@@ -80,8 +78,14 @@ export default function ContactForm() {
     useEffect(() => {
         axios.get('https://consulting-website-server.vercel.app/get_calendar_info')
             .then((response) => {
+                const sentences = [
+                    'Konsultacja Psychologiczna',
+                    'Konsultacja Rodzicielska',
+                    'Wsparcie Psychologiczne',
+                    'Terapia Psychologiczna'
+                ];
                 for(let i = 0; i < response.data.events.length; i++){
-                    if(['Konsultacja Psychologiczna', 'Konsultacja Rodzicielska', 'Wsparcie Psychologiczne', 'Terapia Psychologiczna'].includes(response.data.events[i].summary)){
+                    if(sentences.some(sentence => response.data.events[i].summary.includes(sentence))){
                         reservedDatesStart.push(new Date(response.data.events[i].start.dateTime)) 
                         reservedDatesEnd.push(new Date(response.data.events[i].end.dateTime)) 
                     }
